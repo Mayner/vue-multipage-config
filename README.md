@@ -1,6 +1,6 @@
 # vue-multipage-config
 基于vue-cli脚手架搭建的单页面应用上进行的多页面应用配置
-## 准备工作
+### 准备工作
 - 全局安装`vue-cli`，并使用`vue-cli`快速搭建vue项目，如下：
 ```
 npm vue-cli -g
@@ -32,13 +32,13 @@ vue init webpack xxx    // (注释：xxx即自己的工程名称)
 ├─components
 ├─pages
 │  ├─goods
-│  │   ├─goods.index.html   // 模板源文件
-│  │   ├─goods.index.js     // 入口js文件
-│  │   └─Goods.vue
+│  │  ├─goods.index.html    // 模板源文件
+│  │  ├─goods.index.js      // 入口js文件
+│  │  └─Goods.vue
 │  ├─index
-│  │   ├─index.html         // 模板源文件
-│  │   ├─index.js           // 入口js文件
-│  │   └─App.vue
+│  │  ├─index.html          // 模板源文件
+│  │  ├─index.js            // 入口js文件
+│  │  └─App.vue
 │  └─user
 │     ├─user.index.html     // 模板源文件
 │     ├─user.index.js       // 入口js文件
@@ -61,9 +61,9 @@ new Vue({
 })
 ```
 - 以上准备工作做好，接下来是如何进行多页面应用的配置。
-## webpack配置
+### webpack配置
 以下直接贴出需要改动的配置文件，里面修改或添加的部分均已注释。
-### utils.js文件的修改
+#### utils.js文件的修改
 ```
 'use strict'
 const path = require('path')
@@ -228,7 +228,7 @@ exports.createNotifierCallback = () => {
   }
 }
 ```
-### webpack.base.conf.js文件的修改
+#### webpack.base.conf.js文件的修改
 ```
 'use strict'
 const path = require('path')
@@ -323,7 +323,7 @@ module.exports = {
   }
 }
 ```
-### webpack.dev.conf.js的修改
+#### webpack.dev.conf.js的修改
 ```
 'use strict'
 const utils = require('./utils')
@@ -425,7 +425,7 @@ module.exports = new Promise((resolve, reject) => {
   })
 })
 ```
-### webpack.prod.conf.js的修改
+#### webpack.prod.conf.js的修改
 ```
 'use strict'
 const path = require('path')
