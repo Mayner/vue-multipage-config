@@ -50,19 +50,21 @@ vue init webpack xxx    // (注释：xxx即自己的工程名称)
 // goods.index.js文件
 
 import Vue from 'vue'
-import Goods from './Goods'
+import Goods from './Goods' // 进入Goods.vue
 ...
 
 new Vue({
   el: '#app',
   router,
-  components: { Goods },
+  components: { Goods },    // 注册Goods组件
   template: '<Goods/>'      // 改成<Goods/>
 })
 ```
 - 以上准备工作做好，接下来是如何进行多页面应用的配置。
 ### webpack配置
-以下直接贴出需要改动的配置文件，里面修改或添加的部分均已注释。
+- 在`package.json`文件的`devDependencies`中添加`"glob": "^7.1.3"`这个第三方依赖。
+- 以下直接贴出需要改动的配置文件，里面修改或添加的部分均已注释。
+
 #### utils.js文件的修改
 ```
 'use strict'
@@ -576,4 +578,59 @@ if (config.build.bundleAnalyzerReport) {
 }
 
 module.exports = webpackConfig
+```
+### 运行项目
+分别对每个`.html`模板文件添加`a`标签进行跳转到另外两个页面，示例如下：
+```
+<!-- index.html文件 -->
+
+...
+<a href="user.index.html">跳转到用户主页</a>
+<a href="goods.index.html">跳转到商品主页</a>
+...
+```
+```
+<!-- goods.index.html文件 -->
+
+...
+<a href="index.html">跳转到首页</a>
+<a href="user.index.html">跳转到用户主页</a>
+...
+```
+```
+<!-- user.index.html文件 -->
+
+...
+<a href="index.html">跳转到首页</a>
+<a href="goods.index.html">跳转到商品主页</a>
+...
+```
+#### 开发环境运行
+```
+# 进入vue-multipage-config目录
+cd vue-multipage-config
+
+# 安装所有依赖
+npm install
+
+# 开发环境启动项目,浏览器访问http://localhost:8080/
+# 默认访问的是目录/src/pages/index/下的index.html这个文件
+npm run dev
+
+# 现在可以通过页面的点击按钮跳转到其它页面，注意观察跳转后的url地址
+# 比如跳转到商品主页，url地址变成了http://localhost:8080/goods.index.html#/
+# 而不是http://localhost:8080/#/goods.index.html
+
+# 因此，若手动输入url地址访问时需注意正确书写页面地址：
+# http://localhost:8080/goods.index.html#/
+```
+
+#### 生产环境运行
+```
+# 开发完成后执行打包命令，会在根目录生成dist文件夹
+npm run build
+
+# dist目录下的三个html文件便是webpack根据我们的配置生成的入口html文件
+
+# 不要在本地打开访问，请使用服务端访问文件
 ```
